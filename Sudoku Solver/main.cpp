@@ -4,6 +4,7 @@
 //
 //  Created by Brennan Goff Wallace on 8/9/14.
 //  Copyright (c) 2014 Brennan Goff Wallace. All rights reserved.
+//  MIT License, see LICENSE file for more information.
 //
 
 #include <iostream>
