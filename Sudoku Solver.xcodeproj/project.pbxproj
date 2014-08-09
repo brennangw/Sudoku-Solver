@@ -28,6 +28,7 @@
 		26F6895D1996BD8500F3C69C /* Sudoku Solver */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Sudoku Solver"; sourceTree = BUILT_PRODUCTS_DIR; };
 		26F689601996BD8500F3C69C /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		26F689621996BD8500F3C69C /* Sudoku_Solver.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = Sudoku_Solver.1; sourceTree = "<group>"; };
+		26F689691996BDE300F3C69C /* Plan.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Plan.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +62,7 @@
 			isa = PBXGroup;
 			children = (
 				26F689601996BD8500F3C69C /* main.cpp */,
+				26F689691996BDE300F3C69C /* Plan.txt */,
 				26F689621996BD8500F3C69C /* Sudoku_Solver.1 */,
 			);
 			path = "Sudoku Solver";
