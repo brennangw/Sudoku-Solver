@@ -19,6 +19,7 @@ using namespace std;
 //Definations
 #define WIDTH 9
 #define HEIGHT 9
+#define BOXSIZE 9
 
 //Globals
 //To save myself from having to pass this around I decided to just make it one variable.
@@ -52,12 +53,58 @@ void solve();
  * Purpose: find the correct answer to the square.
  */
 int solveSquare(int, int);
+/*
+ * Name: findPossibles
+ * Purpose: Find and return all the possible valuse for a square at the coordinates given.
+ */
+void findPossibles (int, int, int[]);
+
+
 
 
 
 //Puzzle Solving Functions
+
+void findPossibles (int row, int col, int possibles[]) {
+	//decalring arrays to find possiblities with
+	int rowPos[WIDTH];
+	int colPos[HEIGHT];
+	int boxPos[BOXSIZE];
+	
+	
+}
+
+
 int solveSquare (int col, int row) {
-	return 0;
+	int possibles[] = {0,0,0,0,0,0,0,0,0};
+	findPossibles(row, col, possibles);
+	int singlePossiblity = onePossiblity(possibles);
+	if (singlePossiblity != -1) {
+		return singlePossiblity;
+	} else {
+		int onlyOptionNum = onlyOptionCheck(col, row, possibles);
+		if (onlyOptionNum != -1) {
+			return onlyOptionNum;
+		} else {
+			return 0;
+		}
+	}
+
+	
+	//get all the possible numbers
+		//get the possiblities
+			//from box
+			//from row
+			//from column
+		//condense these numbers
+	//is there only one number?
+		//if yes then the squre is solved
+		//if no for each group check if it is the only possible option for that number
+		//		and if it is for any of them then the squre is solved
+			//box
+			//row
+			//column
+		
 }
 
 void solve () {
@@ -69,7 +116,7 @@ void solve () {
 				if (puzzle[rowCounter][columnCounter] == 0) {
 					int current = solveSquare(rowCounter,columnCounter);
 					//if current does not equal zero then we have solved that square and need to up the counter and record the change.
-					if (current != 0) {
+					if (current != -1) { //DEVNOTE: I had this as current != puzzle[rowCounter][columnCounter] but this was simply faster.
 						totalSquaresSolved++;
 						puzzle[rowCounter][columnCounter] = current;
 					}
