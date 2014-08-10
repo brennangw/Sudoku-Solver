@@ -65,13 +65,23 @@ void findPossibles (int, int, int[]);
 
 //Puzzle Solving Functions
 
+void findRowPos ( int row, int col, int rowPos[]){
+	int y = row;
+	for (int x = 0; x < WIDTH; x++) {
+		int num = puzzle[x][y];
+		rowPos[ num - 1] = 1;
+	}
+}
+
 void findPossibles (int row, int col, int possibles[]) {
 	//decalring arrays to find possiblities with
-	int rowPos[WIDTH];
-	int colPos[HEIGHT];
-	int boxPos[BOXSIZE];
-	
-	
+	int rowPos[9];
+	int colPos[9];
+	int boxPos[9];
+	findRowPos(row, col, rowPos);
+	findColPos(row, col, colPos);
+	findBoxPos(row, col, boxPos);
+	combinePos(rowPos,colPos,boxPos,possibles);
 }
 
 
