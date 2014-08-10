@@ -47,3 +47,6 @@ Defining the 3 x 3 boxes:
 			Take x each coordinate add three and take that number plus the next to increments.
 			Then do the same for each y coordinate.
 			Then find all 9 combos.
+
+"A Plus" Plans:
+	Multi-threading.
