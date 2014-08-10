@@ -42,39 +42,70 @@ void inputPuzzle();
  * Purpose: Prints the puzzle in its current sate.
  */
 void printPuzzle();
+/*
+ * Name: solve
+ * Purpose: Responsiable for solving the actual puzzle.
+ */
+void solve();
+/*
+ * Name: solveSqure
+ * Purpose: find the correct answer to the square.
+ */
+int solveSquare(int, int);
 
 
-void printPuzzle()
-{
-	for (int rowCounter = 0; rowCounter < HEIGHT; rowCounter++ )
-	{
-		for (int columnCounter = 0; columnCounter < WIDTH; columnCounter++)
-			{
+
+//Puzzle Solving Functions
+int solveSquare (int col, int row) {
+	return 0;
+}
+
+void solve () {
+	int totalSquaresSolved = 0; //keeps track of the number of solved squares for the pupose of finding when the puzzle is solved
+	while (totalSquaresSolved < 81 ) {
+		for (int rowCounter = 0; rowCounter < HEIGHT; rowCounter++ ) {
+			for (int columnCounter = 0; columnCounter < WIDTH; columnCounter++) {
+				
+				if (puzzle[rowCounter][columnCounter] == 0) {
+					int current = solveSquare(rowCounter,columnCounter);
+					//if current does not equal zero then we have solved that square and need to up the counter and record the change.
+					if (current != 0) {
+						totalSquaresSolved++;
+						puzzle[rowCounter][columnCounter] = current;
+					}
+				}
+
+			}
+		}
+	}
+}
+
+//I/O functions
+void printPuzzle() {
+	for (int rowCounter = 0; rowCounter < HEIGHT; rowCounter++ ) {
+		for (int columnCounter = 0; columnCounter < WIDTH; columnCounter++) {
 			if (puzzle[rowCounter][columnCounter] == 0) {
 				cout << ' ';
 			} else {
 				cout << puzzle[rowCounter][columnCounter];
 			}
-			}
-	cout << endl;
+		}
+		cout << endl;
 	}
 }
 
-void inputPuzzle()
-{
+void inputPuzzle() {
 	std::ifstream file("puzzle.txt");
 	string line;
-
 	
-	if (file.is_open())
+	
+	if (file.is_open()) {
 		cout << "puzzle.txt sucessfully opened:" << endl;
-		{
+		
 		int lineCounter = 0;
-		while ( getline(file, line) && lineCounter < HEIGHT)
-			{
+		while ( getline(file, line) && lineCounter < HEIGHT) {
 			cout << line << endl;
-			for (int columnCounter = 0; columnCounter < WIDTH; columnCounter++)
-			{
+			for (int columnCounter = 0; columnCounter < WIDTH; columnCounter++) {
 				
 				if (line[columnCounter] == ' ') { //blanks will be sotread as zero for easy comprison
 					puzzle[lineCounter][columnCounter] = 0;
@@ -86,18 +117,18 @@ void inputPuzzle()
 			lineCounter++;
 		}
 		file.close();
-		}
+	}
 	cout << endl << "Stored Puzzle: " <<endl;
 	printPuzzle();
-	solve();
+	
 }
 
-int main(int argc, const char * argv[])
-{
-
+int main(int argc, const char * argv[]) {
+	
 	// insert code here...
 	cout << "Sudoku Puzzle Solver\n" << "This prgram will automatically close if there is not a file named puzzle.txt in the current directory\n\n";
 	inputPuzzle();
+	solve();
     return 0;
 }
 
