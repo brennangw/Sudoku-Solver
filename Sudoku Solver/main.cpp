@@ -89,14 +89,24 @@ void findRowPos ( int, int, int[]);
  */
 void findColPos ( int, int, int[]);
 /*
+ * name: findBoxPos
+ * purpose: Essentially the same as the other find__Pos functions bot for the "box".
+ * plan:
+ * 	get box coordinates
+ *  send box coordinates to get all of the saure coordinates in the box
+ *  double loop to access all of the squres in the box and setting boxPos like findColPos sets colPos
+ */
+void findBoxPos (int row, int col, int boxPox[]);
+/*
+ *
+ */
+
+/*
  * name: setArr
- * purpose: clears an int array setting all elemnets to 1.
+ * purpose: Sets the array to a single number to set it up for pos indication.
  */
 void setArr(int[]);
-/*
- * name: findBoxPos
- * purpose: Find all of the possible
- */
+
 
 //Utility Functions
 void setArr (int toClear[]){
@@ -107,10 +117,11 @@ void setArr (int toClear[]){
 
 //Puzzle Solving Functions
 
-void voidBoxPos (int row, int col, int boxPox[]) {
-	//get box coordinates
-	//send box coordinates to get all of the saure coordinates in the box
-	//double loop to access all of the squres in the box and setting boxPos like findColPos sets colPos
+void findBoxPos (int row, int col, int boxPox[]) {
+	int boxCors[2];
+	int squaresInBox [9][2];
+	getBoxCors( row, col, boxCors);
+	findSquaresInBox (boxCors, squaresInBox)
 	
 	
 	

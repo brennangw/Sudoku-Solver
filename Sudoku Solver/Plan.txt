@@ -5,7 +5,7 @@ To make this as easy as possible I will take a non object oriented approach to s
 Primary Algorithm:
 	First pass through all squares identify all numbers possible and not.
 
-	Primary Loop
+	Primary Loop/Users/Brennan/Desktop/projects/Sudoku Solver/Sudoku Solver/Plan.txt
 		Passing through every square.
 			For each square check what is possible and what is not.
 				For each possible check if that the squares in the currents square's row, column, and box that could be that possible number.
