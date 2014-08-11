@@ -303,7 +303,6 @@ void inputPuzzle() {
 
 int main(int argc, const char * argv[]) {
 	
-	// insert code here...
 	cout << "Sudoku Puzzle Solver\n" << "This prgram will automatically close if there is not a file named puzzle.txt in the current directory\n\n";
 	inputPuzzle();
 	solve();
