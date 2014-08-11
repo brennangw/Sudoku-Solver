@@ -94,18 +94,50 @@ void findColPos ( int, int, int[]);
  * plan:
  * 	get box coordinates
  *  send box coordinates to get all of the saure coordinates in the box
- *  double loop to access all of the squres in the box and setting boxPos like findColPos sets colPos
+ *   access all of the squres in the box and setting boxPos like findColPos sets colPos
  */
 void findBoxPos (int row, int col, int boxPox[]);
 /*
+ * name: getBoxCors
+ * purpose: Given the row and column of a square store the coordinates of the box.
+ * Algorithm:
+ * Divide each coordinate by 3 (truncating).
+ * Examples/Semi-Proof:
+ * square (3,8) => block (1,2)
+ * square (0,0) => block (0,2)
+ * This gives the block "coordinates". Diagram below demonstrates how the block coordinates work. Each block has 9 squares.
+ * +-----+-----+-----+
+ * | 0,0 | 0,1 | 0,2 |
+ * +-----+-----+-----+
+ * | 1,0 | 2,1 | 3,2 |
+ * +-----+-----+-----+
+ * | 2,0 | 2,1 | 3,2 |
+ * +-----+-----+-----+
  *
  */
+void getBoxCors( int, int, int[]);
+/*
+ * name: findSquaresInBox
+ * purpose: Given coordinates of a box store the coordinates of the all the squares in the box.
+ * Algorithm:
+ *		Take x each coordinate add three and take that number plus the next to increments.
+ *		Then do the same for each y coordinate.
+ *		Then find all 9 combos.
+ */
+void findSquaresInBox(int[], int[][2]);
+/*
+ * name: getDimensionRangeSquaresInBox.
+ * purpose: Fins the range of the of squares' in a box values for one axis and puts this info in an array.
+ */
+void getDimensionRangeSquaresInBox (int, int[]);
 
 /*
  * name: setArr
  * purpose: Sets the array to a single number to set it up for pos indication.
  */
 void setArr(int[]);
+
+
 
 
 //Utility Functions
@@ -115,13 +147,42 @@ void setArr (int toClear[]){
 	}
 }
 
+void getDimensionRangeSquaresInBox (int boxCor, int squareCors[]) {
+	int squareCor = boxCor*3;
+	int i = 0;
+	
+	while (squareCor < (boxCor*3 + 3)) {
+		squareCors[i] = squareCor;
+		squareCor++;
+		i++;
+	}
+	
+}
+
+void getBoxCors( int row, int col, int boxCors[]) {
+	boxCors[0] = row/3;
+	boxCors[1] = col/3;
+}
+void findSquaresInBox(int boxCors[], int squaresInBox[][2]) {
+	int xs[3];
+	int ys[3];
+	
+	//get the x and y cordinates
+	getDimensionRangeSquaresInBox(boxCors[0], xs);
+	getDimensionRangeSquaresInBox(boxCors[1], ys);
+	
+	
+
+}
+
+
 //Puzzle Solving Functions
 
 void findBoxPos (int row, int col, int boxPox[]) {
 	int boxCors[2];
 	int squaresInBox [9][2];
 	getBoxCors( row, col, boxCors);
-	findSquaresInBox (boxCors, squaresInBox)
+	findSquaresInBox (boxCors, squaresInBox);
 	
 	
 	
