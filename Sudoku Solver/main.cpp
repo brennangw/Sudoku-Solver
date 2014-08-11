@@ -56,20 +56,81 @@ int solveSquare(int, int);
 /*
  * Name: findPossibles
  * Purpose: Find and return all the possible valuse for a square at the coordinates given.
+ * Outline: 
+ * get all the possible numbers
+ *		get the possiblities
+ *			from box
+ *			from row
+ *			from column
+ * condense these numbers
+ * is there only one number?
+ *		if yes then the squre is solved
+ *		if no for each group check if it is the only possible option for that number
+ *			and if it is for any of them then the squre is solved
+ *			box
+ *			row
+ *			column
  */
 void findPossibles (int, int, int[]);
+/*
+ * name: findRowPos
+ * purpose: Edits the rowPos array so that it refelcts all the possiblities in that row.
+ * It foes through each sqaure in the row and then edits the corresponding element of the 
+ * array to reflect this. So if the row had 1, 2, 9 then the rowPos array would have elements
+ * 0, 1, 8 marked 1 while the rest equal 0.
+ */
+void findRowPos ( int, int, int[]);
+/*
+ * name: findColPos
+ * purpose: Edits the colPos array so that it refelcts all the possiblities in that column.
+ * It foes through each sqaure in the column and then edits the corresponding element of the
+ * array to reflect this. So if the column had 1, 2, 9 then the colPos array would have elements
+ * 0, 1, 8 marked 1 while the rest equal 0.
+ */
+void findColPos ( int, int, int[]);
+/*
+ * name: setArr
+ * purpose: clears an int array setting all elemnets to 1.
+ */
+void setArr(int[]);
+/*
+ * name: findBoxPos
+ * purpose: Find all of the possible
+ */
 
-
-
-
+//Utility Functions
+void setArr (int toClear[]){
+	for (int i = 0; i < 9; i++) {
+		toClear[i] = 1;
+	}
+}
 
 //Puzzle Solving Functions
 
+void voidBoxPos (int row, int col, int boxPox[]) {
+	//get box coordinates
+	//send box coordinates to get all of the saure coordinates in the box
+	//double loop to access all of the squres in the box and setting boxPos like findColPos sets colPos
+	
+	
+	
+}
+
+void findColPos ( int row, int col, int colPos[]){
+	setArr(colPos); //set all the array to zero
+	int x = col; //the col that the the sqaure is in is also the y-coordinate if you start at zero which I am.
+	for (int y = 0; y < HEIGHT; y++) {
+		int num = puzzle[x][y];
+		colPos[ num - 1] = -1; //negative 1 indicates that the number coressponding to the element (num 9 -> element 8, etc) is not a possiblity
+	}
+}
+
 void findRowPos ( int row, int col, int rowPos[]){
-	int y = row;
+	setArr(rowPos); //set all the array to zero
+	int y = row; //the row that the the sqaure is in is also the y-coordinate if you start at zero which I am.
 	for (int x = 0; x < WIDTH; x++) {
 		int num = puzzle[x][y];
-		rowPos[ num - 1] = 1;
+		rowPos[ num - 1] = -1;
 	}
 }
 
@@ -101,19 +162,7 @@ int solveSquare (int col, int row) {
 	}
 
 	
-	//get all the possible numbers
-		//get the possiblities
-			//from box
-			//from row
-			//from column
-		//condense these numbers
-	//is there only one number?
-		//if yes then the squre is solved
-		//if no for each group check if it is the only possible option for that number
-		//		and if it is for any of them then the squre is solved
-			//box
-			//row
-			//column
+
 		
 }
 
