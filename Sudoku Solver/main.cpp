@@ -127,9 +127,14 @@ void getBoxCors( int, int, int[]);
 void findSquaresInBox(int[], int[][2]);
 /*
  * name: getDimensionRangeSquaresInBox.
- * purpose: Fins the range of the of squares' in a box values for one axis and puts this info in an array.
+ * purpose: Finds the range of the of squares' in a box values for one axis and puts this info in an array.
  */
 void getDimensionRangeSquaresInBox (int, int[]);
+/*
+ * name: getSquareCorsFromXYCoors
+ * purpose: Given the x and y coordinates it finds all the combinations of these.
+ */
+void getSquareCorsFromXYCoors(int [], int[], int[][2], int);
 
 /*
  * name: setArr
@@ -141,6 +146,17 @@ void setArr(int[]);
 
 
 //Utility Functions
+void getSquareCorsFromXYCoors(int x[], int y[], int squares[][2], int l){
+	int i = 0;
+	for (int xi = 0; xi < l; xi++) {
+		for (int yi = 0; yi < l; yi++) {
+			squares[i][0] = x[xi];
+			squares[i][1] = y[yi];
+			i++;
+		}
+	}
+}
+
 void setArr (int toClear[]){
 	for (int i = 0; i < 9; i++) {
 		toClear[i] = 1;
@@ -170,6 +186,8 @@ void findSquaresInBox(int boxCors[], int squaresInBox[][2]) {
 	//get the x and y cordinates
 	getDimensionRangeSquaresInBox(boxCors[0], xs);
 	getDimensionRangeSquaresInBox(boxCors[1], ys);
+	getSquareCorsFromXYCoors (squaresInBox, xs, ys, 3);
+	
 	
 	
 
