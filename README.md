@@ -1,6 +1,8 @@
 Sudoku-Solver
 =============
 
+This program is an automated Sudoku puzzle solver. It is written procedurally in C++. 
+
 License
 =============
 The MIT License (MIT)
