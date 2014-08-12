@@ -96,7 +96,13 @@ void findColPos ( int, int, int[]);
  *  send box coordinates to get all of the saure coordinates in the box
  *   access all of the squres in the box and setting boxPos like findColPos sets colPos
  */
-void findBoxPos (int row, int col, int boxPox[]);
+void findBoxPos (int, int, int[]);
+/*
+ * name: combinePos
+ * purpose: combines all of the possiblities for columns, rows and boxes. If it is not possible due to one then it is not possible is the basic logic used.
+ */
+void combinePos (int[], int[], int[], int[]);
+
 /*
  * name: getBoxCors
  * purpose: Given the row and column of a square store the coordinates of the box.
@@ -186,7 +192,7 @@ void findSquaresInBox(int boxCors[], int squaresInBox[][2]) {
 	//get the x and y cordinates
 	getDimensionRangeSquaresInBox(boxCors[0], xs);
 	getDimensionRangeSquaresInBox(boxCors[1], ys);
-	getSquareCorsFromXYCoors (squaresInBox, xs, ys, 3);
+	//getSquareCorsFromXYCoors (squaresInBox, xs, ys, 3);
 	
 	
 	
@@ -196,11 +202,12 @@ void findSquaresInBox(int boxCors[], int squaresInBox[][2]) {
 
 //Puzzle Solving Functions
 
-void findBoxPos (int row, int col, int boxPox[]) {
-	int boxCors[2];
-	int squaresInBox [9][2];
-	getBoxCors( row, col, boxCors);
-	findSquaresInBox (boxCors, squaresInBox);
+void findBoxPos (int row, int col, int boxPos[]) {
+	setArr(boxPos);
+//	int boxCors[2];
+//	int squaresInBox [9][2];
+//	getBoxCors( row, col, boxCors);
+//	findSquaresInBox (boxCors, squaresInBox);
 	
 	
 	
@@ -208,20 +215,34 @@ void findBoxPos (int row, int col, int boxPox[]) {
 
 void findColPos ( int row, int col, int colPos[]){
 	setArr(colPos); //set all the array to zero
-	int x = col; //the col that the the sqaure is in is also the y-coordinate if you start at zero which I am.
 	for (int y = 0; y < HEIGHT; y++) {
-		int num = puzzle[x][y];
+		int num = puzzle[y][col];
 		colPos[ num - 1] = -1; //negative 1 indicates that the number coressponding to the element (num 9 -> element 8, etc) is not a possiblity
 	}
 }
 
 void findRowPos ( int row, int col, int rowPos[]){
-	setArr(rowPos); //set all the array to zero
-	int y = row; //the row that the the sqaure is in is also the y-coordinate if you start at zero which I am.
+	setArr(rowPos); //set all the array to one
+	cout << "row is: " << row << "  col is: " << col <<endl;
 	for (int x = 0; x < WIDTH; x++) {
-		int num = puzzle[x][y];
-		rowPos[ num - 1] = -1;
+		int num = puzzle[row][x];
+			cout << "num is " << num << endl;
+		rowPos[ num - 1] = -1; //represents not possible
 	}
+}
+
+void markNotPos (int toRead[], int toMark[], int l){
+	for (int i = 0; i < l; i++) {
+		if (toRead[i] == -1) {
+			toMark[i] = -1;
+		}
+	}
+}
+
+void combinePos(int rowPos[], int colPos[], int boxPos[], int totPos[]) {
+	markNotPos (rowPos, totPos, 9);
+	markNotPos (colPos, totPos, 9);
+	markNotPos (boxPos, totPos, 9);
 }
 
 void findPossibles (int row, int col, int possibles[]) {
@@ -230,50 +251,78 @@ void findPossibles (int row, int col, int possibles[]) {
 	int colPos[9];
 	int boxPos[9];
 	findRowPos(row, col, rowPos);
+	cout << "after findRowPos rowPos is:" <<endl;
+	for (int rowP :rowPos) {
+		cout << rowP << endl;
+	}
 	findColPos(row, col, colPos);
+	cout << "after findcolPos colPos is:" <<endl;
+	for (int colP :colPos) {
+		cout << colP << endl;
+	}
 	findBoxPos(row, col, boxPos);
 	combinePos(rowPos,colPos,boxPos,possibles);
 }
 
+int onePossiblity (int toCheck[], int l) {
+	int soloPos = -1;
+	for (int i = 0; i < l; i++) {
+		if (toCheck[i] == 0 && soloPos == -1) {
+			soloPos = i + 1;
+		} else if (toCheck[i] == 0 && soloPos != -1 ) {
+			return -1;
+		}
+	}
+	return soloPos;
+}
 
-int solveSquare (int col, int row) {
+
+int solveSquare (int row, int col) {
 	int possibles[] = {0,0,0,0,0,0,0,0,0};
 	findPossibles(row, col, possibles);
-	int singlePossiblity = onePossiblity(possibles);
+	cout << "possibles array from solve square is found to be: " << endl;
+	for (int pos : possibles) {
+		cout << pos << endl;
+	}
+	int singlePossiblity = onePossiblity(possibles, 9);
 	if (singlePossiblity != -1) {
 		return singlePossiblity;
 	} else {
-		int onlyOptionNum = onlyOptionCheck(col, row, possibles);
-		if (onlyOptionNum != -1) {
-			return onlyOptionNum;
-		} else {
-			return 0;
-		}
+		return -1;
+//		int onlyOptionNum = onlyOptionCheck(col, row, possibles);
+//		if (onlyOptionNum != -1) {
+//			return onlyOptionNum;
+//		} else {
+//			return 0;
+//		}
 	}
-
-	
-
-		
 }
-
+  
 void solve () {
 	int totalSquaresSolved = 0; //keeps track of the number of solved squares for the pupose of finding when the puzzle is solved
 	while (totalSquaresSolved < 81 ) {
+		totalSquaresSolved = 0;
 		for (int rowCounter = 0; rowCounter < HEIGHT; rowCounter++ ) {
 			for (int columnCounter = 0; columnCounter < WIDTH; columnCounter++) {
-				
+				cout << "looking at: " << rowCounter << "," << columnCounter << " which is currently: " << puzzle[rowCounter][columnCounter] << endl;
 				if (puzzle[rowCounter][columnCounter] == 0) {
+					cout << "solving this square" << endl;
 					int current = solveSquare(rowCounter,columnCounter);
+					cout << "answer is : " << current << endl;
 					//if current does not equal zero then we have solved that square and need to up the counter and record the change.
 					if (current != -1) { //DEVNOTE: I had this as current != puzzle[rowCounter][columnCounter] but this was simply faster.
-						totalSquaresSolved++;
+						//totalSquaresSolved++;
 						puzzle[rowCounter][columnCounter] = current;
 					}
+				} else {
+					totalSquaresSolved++;
 				}
 
 			}
 		}
 	}
+	
+	printPuzzle();
 }
 
 //I/O functions
